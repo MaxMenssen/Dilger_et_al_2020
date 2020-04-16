@@ -205,10 +205,10 @@ ggplot(dat_1, aes(x=Treatment, y=delta_ct))+
         geom_linerange(data=means_1, aes(x=Treatment,
                                            ymin=lower.CL,
                                            ymax=upper.CL))+
-        geom_point(data=means_1, aes(x=Treatment, y=delta_ct), size=1)+
+        geom_point(data=means_1, aes(x=Treatment, y=delta_ct), shape="-", size=6)+
         geom_text(data=means_1, aes(y=max_delta,
                                     x=Treatment,
-                                    label=sig_star), size=4)+
+                                    label=sig_star), size=6)+
         scale_y_continuous(breaks=c(1e-8, 1e-06, 1e-04, 1e-02, 1), 
                            trans="log10")+
         scale_x_discrete(breaks=c("Control", 
@@ -218,7 +218,7 @@ ggplot(dat_1, aes(x=Treatment, y=delta_ct))+
                                   "30d_NIM-2_1d_MAT"))+
         scale_color_discrete(breaks=c("Control", 
                                   "NIM-1", 
-                                  "7d NIM-2",
+                                  "7d_NIM-2",
                                   "30d_NIM-2",
                                   "30d_NIM-2_1d_MAT"),
                              labels=c("Control", 
@@ -226,19 +226,27 @@ ggplot(dat_1, aes(x=Treatment, y=delta_ct))+
                                       "7d NIM-2",
                                       "30d NIM-2",
                                       "30d NIM-2 1d MAT"))+
+        scale_color_manual(values=c("#FF6666",
+                                    "#CCCC33",
+                                    "#33CC33",
+                                    "#0099CC",
+                                    "#FF99FF"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
-              legend.position="top",
+              legend.position="bottom",
               legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
-              strip.text.x = element_text(face="italic"),
-              axis.ticks.x=element_blank())+
+              legend.text = element_text(face="bold"),
+              strip.text.x = element_text(face="bold.italic"),
+              axis.ticks.x=element_blank(),
+              axis.text.y = element_text(color="black"),
+              axis.title.y = element_text(color="black", size=15))+
         ylab(bquote("Relative gene expression ("~2^{-Delta~"Ct"}~")"))+
         xlab("")+
         facet_grid(~Gen)
 
 # Save the grafic
-ggsave("gene_expression_fig_1.png", width=13*2, height=9*1.5, units="cm")
+ggsave("gene_expression_fig_1.png", width=13*2, height=9*1.5, units="cm", dpi=600)
 
 #------------------------------------------------------------------------------
 #----------------------------- Grafic 3 A -------------------------------------
@@ -288,10 +296,10 @@ ggplot(dat_3, aes(x=Treatment, y=delta_ct))+
         geom_linerange(data=means_3, aes(x=Treatment,
                                          ymin=lower.CL,
                                          ymax=upper.CL))+
-        geom_point(data=means_3, aes(x=Treatment, y=delta_ct), size=1)+
+        geom_point(data=means_3, aes(x=Treatment, y=delta_ct), shape="-", size=6)+
         geom_text(data=means_3, aes(y=max_delta,
                                     x=Treatment,
-                                    label=sig_star), size=4)+
+                                    label=sig_star), size=6)+
         scale_y_continuous(breaks=c(1e-8, 1e-06, 1e-04, 1e-02, 1), 
                            trans="log10")+
         scale_x_discrete(breaks=c("Control", 
@@ -301,7 +309,7 @@ ggplot(dat_3, aes(x=Treatment, y=delta_ct))+
                                   "30d_NIM-2_1d_MAT"))+
         scale_color_discrete(breaks=c("Control", 
                                       "NIM-1", 
-                                      "7d NIM-2",
+                                      "7d_NIM-2",
                                       "30d_NIM-2",
                                       "30d_NIM-2_1d_MAT"),
                              labels=c("Control", 
@@ -309,19 +317,27 @@ ggplot(dat_3, aes(x=Treatment, y=delta_ct))+
                                       "7d NIM-2",
                                       "30d NIM-2",
                                       "30d NIM-2 1d MAT"))+
+        scale_color_manual(values=c("#FF6666",
+                                    "#CCCC33",
+                                    "#33CC33",
+                                    "#0099CC",
+                                    "#FF99FF"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
-              legend.position="top",
-              legend.box.margin=margin(-10, -10, -10, -10,),
+              legend.position="bottom",
+              legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
-              strip.text.x = element_text(face="italic"),
-              axis.ticks.x=element_blank())+
+              legend.text = element_text(face="bold"),
+              strip.text.x = element_text(face="bold.italic"),
+              axis.ticks.x=element_blank(),
+              axis.text.y = element_text(color="black"),
+              axis.title.y = element_text(color="black", size=15))+
         ylab(bquote("Relative gene expression ("~2^{-Delta~"Ct"}~")"))+
         xlab("")+
         facet_grid(~Gen)
 
 # Save the grafic
-ggsave("gene_expression_fig_3.png", width=13*2, height=9*1.5, units="cm")
+ggsave("gene_expression_fig_3.png", width=13*2, height=9*1.5, units="cm", dpi=600)
 
 
 #------------------------------------------------------------------------------
@@ -368,10 +384,10 @@ ggplot(dat_A, aes(x=Treatment, y=delta_ct))+
         geom_linerange(data=means_A, aes(x=Treatment,
                                          ymin=lower.CL,
                                          ymax=upper.CL))+
-        geom_point(data=means_A, aes(x=Treatment, y=delta_ct), size=1)+
+        geom_point(data=means_A, aes(x=Treatment, y=delta_ct), shape="-", size=6)+
         geom_text(data=means_A, aes(y=max_delta,
                                     x=Treatment,
-                                    label=sig_star), size=4)+
+                                    label=sig_star), size=6)+
         scale_y_continuous(breaks=c(1e-8, 1e-06, 1e-04, 1e-02, 1), 
                            limits=c(1e-08, 1),
                            trans="log10")+
@@ -382,7 +398,7 @@ ggplot(dat_A, aes(x=Treatment, y=delta_ct))+
                                   "30d_NIM-2_1d_MAT"))+
         scale_color_discrete(breaks=c("Control", 
                                       "NIM-1", 
-                                      "7d NIM-2",
+                                      "7d_NIM-2",
                                       "30d_NIM-2",
                                       "30d_NIM-2_1d_MAT"),
                              labels=c("Control", 
@@ -390,19 +406,27 @@ ggplot(dat_A, aes(x=Treatment, y=delta_ct))+
                                       "7d NIM-2",
                                       "30d NIM-2",
                                       "30d NIM-2 1d MAT"))+
+        scale_color_manual(values=c("#FF6666",
+                                    "#CCCC33",
+                                    "#33CC33",
+                                    "#0099CC",
+                                    "#FF99FF"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
-              legend.position="top",
-              legend.box.margin=margin(-10, -10, -10, -10,),
+              legend.position="bottom",
+              legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
-              strip.text.x = element_text(face="italic"),
-              axis.ticks.x=element_blank())+
+              legend.text = element_text(face="bold"),
+              strip.text.x = element_text(face="bold.italic"),
+              axis.ticks.x=element_blank(),
+              axis.text.y = element_text(color="black"),
+              axis.title.y = element_text(color="black", size=15))+
         ylab(bquote("Relative gene expression ("~2^{-Delta~"Ct"}~")"))+
         xlab("")+
         facet_grid(~Gen)
 
 # Save the grafic
-ggsave("gene_expression_fig_appendix.png", width=13*1.5, height=9*1.5, units="cm")
+ggsave("gene_expression_fig_appendix.png", width=13*1.5, height=9*1.5, units="cm", dpi=600)
 
 
 
