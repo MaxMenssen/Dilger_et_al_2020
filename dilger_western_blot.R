@@ -183,7 +183,8 @@ ggplot(dat_con, aes(x=Treatment, y=Int_House_Cont))+
         geom_linerange(data=means_con, aes(x=Treatment,
                                          ymin=lower.CL,
                                          ymax=upper.CL))+
-        geom_point(data=means_con, aes(x=Treatment, y=Int_House_Cont))+
+        geom_point(data=means_con, aes(x=Treatment, y=Int_House_Cont), 
+                   shape="-", size=6)+
         geom_text(data=means_con, aes(y=upper.CL+0.00001,
                                     x=Treatment,
                                     label=sig_star), size=8)+
@@ -207,16 +208,19 @@ ggplot(dat_con, aes(x=Treatment, y=Int_House_Cont))+
                                       "30d NIM-2 1d MAT"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
-              legend.position="top",
+              legend.position="bottom",
               legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
-              # strip.text.x = element_text(face="italic"),
-              axis.ticks.x=element_blank())+
+              legend.text = element_text(face="bold"),
+              strip.text.x = element_text(face="bold"),
+              axis.ticks.x=element_blank(),
+              axis.text.y = element_text(color="black"),
+              axis.title.y = element_text(color="black", size=15))+
         ylab("Relative protein expression level\n scaled on MSC")+
         xlab("")+
         facet_grid(~Protein)
 
-ggsave("western_blot_connexin_fig_3_b.png", width=13*1.5, height=9*1.5, units="cm")
+ggsave("western_blot_connexin_fig_3_b.png", width=13*1.5, height=9*1.5, units="cm", dpi=600)
 
 
 #------------------------------------------------------------------------------
@@ -247,7 +251,8 @@ ggplot(dat_neu, aes(x=Treatment, y=Int_House_Cont))+
         geom_linerange(data=means_neu, aes(x=Treatment,
                                            ymin=lower.CL,
                                            ymax=upper.CL))+
-        geom_point(data=means_neu, aes(x=Treatment, y=Int_House_Cont))+
+        geom_point(data=means_neu, aes(x=Treatment, y=Int_House_Cont),
+                   shape="-", size=6)+
         geom_text(data=means_neu, aes(y=upper.CL+0.00001,
                                       x=Treatment,
                                       label=sig_star), size=8)+
@@ -255,10 +260,10 @@ ggplot(dat_neu, aes(x=Treatment, y=Int_House_Cont))+
                            limits=c(0.025, 16),
                            trans="log10")+
         scale_x_discrete(breaks=c(# "Control",
-                                  "NIM-1",
-                                  "7d_NIM-2",
-                                  "30d_NIM-2",
-                                  "30d_NIM-2_1d_MAT"))+
+                "NIM-1",
+                "7d_NIM-2",
+                "30d_NIM-2",
+                "30d_NIM-2_1d_MAT"))+
         scale_color_discrete(breaks=c(#"Control",
                 "NIM-1",
                 "7d_NIM-2",
@@ -271,11 +276,14 @@ ggplot(dat_neu, aes(x=Treatment, y=Int_House_Cont))+
                         "30d NIM-2 1d MAT"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
-              legend.position="top",
+              legend.position="bottom",
               legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
-              # strip.text.x = element_text(face="italic"),
-              axis.ticks.x=element_blank())+
+              legend.text = element_text(face="bold"),
+              strip.text.x = element_text(face="bold"),
+              axis.ticks.x=element_blank(),
+              axis.text.y = element_text(color="black"),
+              axis.title.y = element_text(color="black", size=15))+
         ylab("Relative protein expression level\n scaled on MSC")+
         xlab("")+
         facet_grid(~Protein)
