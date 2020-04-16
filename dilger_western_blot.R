@@ -206,6 +206,11 @@ ggplot(dat_con, aes(x=Treatment, y=Int_House_Cont))+
                                       "7d NIM-2",
                                       "30d NIM-2",
                                       "30d NIM-2 1d MAT"))+
+        scale_color_manual(values=c(#"#FF6666",
+                                    "#CCCC33",
+                                    "#33CC33",
+                                    "#0099CC",
+                                    "#FF99FF"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
               legend.position="bottom",
@@ -220,7 +225,7 @@ ggplot(dat_con, aes(x=Treatment, y=Int_House_Cont))+
         xlab("")+
         facet_grid(~Protein)
 
-ggsave("western_blot_connexin_fig_3_b.png", width=13*1.5, height=9*1.5, units="cm", dpi=600)
+ggsave("western_blot_connexin_fig_3_b.png", width=13, height=9*1.5, units="cm", dpi=600)
 
 
 #------------------------------------------------------------------------------
@@ -274,6 +279,11 @@ ggplot(dat_neu, aes(x=Treatment, y=Int_House_Cont))+
                         "7d NIM-2",
                         "30d NIM-2",
                         "30d NIM-2 1d MAT"))+
+        scale_color_manual(values=c(#"#FF6666",
+                                    "#CCCC33",
+                                    "#33CC33",
+                                    "#0099CC",
+                                    "#FF99FF"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
               legend.position="bottom",
@@ -288,7 +298,7 @@ ggplot(dat_neu, aes(x=Treatment, y=Int_House_Cont))+
         xlab("")+
         facet_grid(~Protein)
 
-ggsave("western_blot_neuronal_fig_1_c.png", width=13*1.5, height=9*1.5, units="cm")
+ggsave("western_blot_neuronal_fig_1_c.png", width=13, height=9*1.5, units="cm")
 
 
 
