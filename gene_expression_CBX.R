@@ -31,11 +31,12 @@ str(dat)
 
 # Graphical overview about the exp. design
 # Show which Genes were on the same plate 
-# ggplot(dat, aes(x=Treat, y=delta_ct))+
-#         theme_bw()+
-#         geom_point()+
-#         facet_grid(Run~Gen)+
-#         xlab("Treatment")
+
+ggplot(dat, aes(x=Treat, y=delta_ct))+
+        theme_bw()+
+        geom_point()+
+        facet_grid(Run~Gen)+
+        xlab("Treatment")
 
 
 #------------------------------------------------------------------------------
@@ -202,6 +203,7 @@ for(i in 1:length(genes)){
 
 anova_data_frame <- ldply(anova_results, .fun=data.frame) %>% 
         dplyr::rename(Gen=.id) %>% 
+        select(Gen, Df, predictor, everything()) %>% 
         data.frame()
 
 write.csv2(anova_data_frame, "genes_anova_CBX_dilger.csv", 
@@ -219,8 +221,6 @@ write.csv2(means_data_frame, "genes_means_CBX_dilger.csv",
 
 #------------------------------------------------------------------------------
 
-
-contrasts
 
 contrasts_data_frame <- ldply(contrasts, .fun=data.frame) %>% 
         dplyr::rename(Gene=.id) %>% 
