@@ -81,9 +81,7 @@ write.csv2(data.frame(comp$contrasts), "dye_transfer_contrasts_dilger.csv",
 
 #------------------------------------------------------------------------------
 
-# 
-# dat$coupling_rate_injected[dat$coupling_rate_injected==0] <- 0.00001
-
+# Grafic 2b
 ggplot(dat, aes(x=Treatment, y=coupling_rate_injected))+
         theme_bw()+
         geom_point(aes(color=Treatment),
