@@ -323,8 +323,8 @@ ggplot(dat_1, aes(x=Interaction, y=delta_ct))+
                                          ymin=lower.CL,
                                          ymax=upper.CL))+
         geom_point(data=means_1, aes(x=Interaction,
-                                     y=delta_ct), 
-                   size=1)+
+                                     y=delta_ct),
+                   shape="-", size=6)+
         geom_text(data=means_1, aes(y=1.2*max_delta,
                                     x=Interaction,
                                     label=sig_star_msc), size=6)+
@@ -345,19 +345,28 @@ ggplot(dat_1, aes(x=Interaction, y=delta_ct))+
                                       bquote("AC, 0"~mu*"M"),
                                       bquote("AC, 50"~mu*"M"),
                                       bquote("AC, 100"~mu*"M")))+
+        scale_color_manual(values=c("#FFCC00",
+                                    "#FF9900",
+                                    "#FF6600",
+                                    "#0099FF",
+                                    "#66CCFF",
+                                    "#3399CC"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
-              legend.position="top",
+              legend.position="bottom",
               legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
-              strip.text.x = element_text(face="italic"),
-              axis.ticks.x=element_blank())+
+              legend.text = element_text(face="bold"),
+              strip.text.x = element_text(face="bold.italic"),
+              axis.ticks.x=element_blank(),
+              axis.text.y = element_text(color="black"),
+              axis.title.y = element_text(color="black", size=15))+
         ylab(bquote("Relative gene expression ("~2^{-Delta~"Ct"}~")"))+
         xlab("")+
         facet_grid(~Gen)
 
 # Save the grafic
-ggsave("gene_expression_CBX_fig_1.png", width=13*2, height=9*1.5, units="cm")
+ggsave("gene_expression_CBX_fig_1.png", width=13*2, height=9*1.5, units="cm", dpi=600)
 
 
 
