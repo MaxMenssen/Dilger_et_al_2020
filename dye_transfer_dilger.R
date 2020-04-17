@@ -40,8 +40,8 @@ ggplot(dat, aes(x=Day, y=coupling_rate_injected))+
         facet_grid(~Treatment)+
         theme(axis.text.x=element_text(angle=90, hjust = 1))
 
-# Due to the experimental design the treatment effect might be somehow confonded 
-# with a time effect. 
+# ATTENTION: Due to the experimental design the treatment effect might be somehow confonded 
+# with a time effect.
 
 #------------------------------------------------------------------------------
 
@@ -91,38 +91,47 @@ ggplot(dat, aes(x=Treatment, y=coupling_rate_injected))+
                                          ymin=lower,
                                          ymax=upper))+
         geom_point(data=ls_means, 
-                   aes(x=Treatment, y=coupling_rate_injected))+
+                   aes(x=Treatment, y=coupling_rate_injected),
+                   shape="-", size=6)+
         geom_text(data=ls_means, aes(y=upper+2.6,
                                     x=Treatment,
                                     label=sig_star), size=6)+
         scale_y_continuous(trans="log",
                            breaks=c(0.001, 0.01, 0.1, 1, 10, 25),
                            limits=c(0.0005, 26))+
-        scale_x_discrete(breaks=c("Control",
-                                  "NIM-1",
-                                  "7d_NIM-2",
-                                  "30d_NIM-2",
-                                  "30d_NIM-2_1d_MAT"))+
-        scale_color_discrete(breaks=c("Control",
-                                      "NIM-1",
-                                      "7d_NIM-2",
-                                      "30d_NIM-2",
-                                      "30d_NIM-2_1d_MAT"),
-                             labels=c("Control", 
-                                      "NIM-1", 
-                                      "7d NIM-2",
-                                      "30d NIM-2",
-                                      "30d NIM-2 1d MAT"))+
-        theme(axis.text.x=element_blank(),
-              legend.title.align=0.5,
-              legend.position="top",
-              legend.box.margin=margin(-10, -10, -10, -10),
-              legend.title = element_blank(),
-              strip.text.x = element_text(face="italic"),
-              axis.ticks.x=element_blank())+
+  scale_x_discrete(breaks=c("Control", 
+                            "NIM-1", 
+                            "7d_NIM-2",
+                            "30d_NIM-2",
+                            "30d_NIM-2_1d_MAT"))+
+  scale_color_discrete(breaks=c("Control", 
+                                "NIM-1", 
+                                "7d_NIM-2",
+                                "30d_NIM-2",
+                                "30d_NIM-2_1d_MAT"),
+                       labels=c("Control", 
+                                "NIM-1", 
+                                "7d NIM-2",
+                                "30d NIM-2",
+                                "30d NIM-2 1d MAT"))+
+  scale_color_manual(values=c("#FF6666",
+                              "#CCCC33",
+                              "#33CC33",
+                              "#0099CC",
+                              "#FF99FF"))+
+  theme(axis.text.x=element_blank(),
+        legend.title.align=0.5,
+        legend.position="bottom",
+        legend.box.margin=margin(-10, -10, -10, -10),
+        legend.title = element_blank(),
+        legend.text = element_text(face="bold"),
+        strip.text.x = element_text(face="bold.italic"),
+        axis.ticks.x=element_blank(),
+        axis.text.y = element_text(color="black"),
+        axis.title.y = element_text(color="black", size=15))+
         ylab("LY dye coupling rate")+
         xlab("")
 
-ggsave("dye_transfer_fig_2.png", width=13*1.5, height=9*1.5, units="cm")
+ggsave("dye_transfer_fig_2.png", width=10, height=9*1.5, units="cm", dpi=600)
 
 
