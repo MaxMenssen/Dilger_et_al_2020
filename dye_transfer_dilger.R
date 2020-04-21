@@ -104,7 +104,7 @@ ggplot(dat, aes(x=Treatment, y=coupling_rate_injected))+
                             "7d_NIM-2",
                             "30d_NIM-2",
                             "30d_NIM-2_1d_MAT"))+
-  scale_color_discrete(breaks=c("Control", 
+  scale_color_manual(breaks=c("Control", 
                                 "NIM-1", 
                                 "7d_NIM-2",
                                 "30d_NIM-2",
@@ -113,25 +113,25 @@ ggplot(dat, aes(x=Treatment, y=coupling_rate_injected))+
                                 "NIM-1", 
                                 "7d NIM-2",
                                 "30d NIM-2",
-                                "30d NIM-2 1d MAT"))+
-  scale_color_manual(values=c("#FF6666",
-                              "#CCCC33",
-                              "#33CC33",
-                              "#0099CC",
-                              "#FF99FF"))+
+                                "30d NIM-2 1d MAT"),
+                       values=c("#FF6666",
+                                "#CCCC33",
+                                "#33CC33",
+                                "#0099CC",
+                                "#FF99FF"))+
   theme(axis.text.x=element_blank(),
         legend.title.align=0.5,
-        legend.position="bottom",
+        legend.position="",
         legend.box.margin=margin(-10, -10, -10, -10),
         legend.title = element_blank(),
         legend.text = element_text(face="bold"),
         strip.text.x = element_text(face="bold.italic"),
         axis.ticks.x=element_blank(),
-        axis.text.y = element_text(color="black"),
+        axis.text.y = element_text(color="black", face="bold"),
         axis.title.y = element_text(color="black", size=15))+
         ylab("LY dye coupling rate")+
         xlab("")
 
-ggsave("dye_transfer_fig_2.png", width=10, height=9*1.5, units="cm", dpi=600)
+ggsave("dye_transfer_fig_2.png", width=9, height=10, units="cm", dpi=600)
 
 
