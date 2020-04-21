@@ -191,41 +191,37 @@ ggplot(dat_con, aes(x=Treatment, y=Int_House_Cont))+
         scale_y_continuous(breaks=c(0.025, 0.05, 0.1, 1, 10, 15),
                            limits=c(0.025, 16),
                            trans="log10")+
-        scale_x_discrete(breaks=c(# "Control",
-                                  "NIM-1",
+        scale_x_discrete(breaks=c("NIM-1",
                                   "7d_NIM-2",
                                   "30d_NIM-2",
                                   "30d_NIM-2_1d_MAT"))+
-        scale_color_discrete(breaks=c(#"Control",
-                                      "NIM-1",
-                                      "7d_NIM-2",
-                                      "30d_NIM-2",
-                                      "30d_NIM-2_1d_MAT"),
-                             labels=c(#"Control",
-                                      "NIM-1",
-                                      "7d NIM-2",
-                                      "30d NIM-2",
-                                      "30d NIM-2 1d MAT"))+
-        scale_color_manual(values=c(#"#FF6666",
-                                    "#CCCC33",
-                                    "#33CC33",
-                                    "#0099CC",
-                                    "#FF99FF"))+
+        scale_color_manual(breaks=c("NIM-1",
+                                    "7d_NIM-2",
+                                    "30d_NIM-2",
+                                    "30d_NIM-2_1d_MAT"),
+                labels=c("NIM-1",
+                        "7d NIM-2",
+                        "30d NIM-2",
+                        "30d NIM-2 1d MAT"),
+                values=c("#CCCC33",
+                        "#33CC33",
+                        "#0099CC",
+                        "#FF99FF"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
-              legend.position="bottom",
+              legend.position="",
               legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
               legend.text = element_text(face="bold"),
-              strip.text.x = element_text(face="bold"),
+              strip.text.x = element_text(face="bold", size=15),
               axis.ticks.x=element_blank(),
-              axis.text.y = element_text(color="black"),
+              axis.text.y = element_text(color="black", face="bold"),
               axis.title.y = element_text(color="black", size=15))+
         ylab("Relative protein expression level\n scaled on MSC")+
         xlab("")+
         facet_grid(~Protein)
 
-ggsave("western_blot_connexin_fig_3_b.png", width=13, height=9*1.5, units="cm", dpi=600)
+ggsave("western_blot_connexin_fig_3_b.png", width=9, height=10, units="cm", dpi=600)
 
 
 #------------------------------------------------------------------------------
@@ -251,54 +247,52 @@ ggplot(dat_neu, aes(x=Treatment, y=Int_House_Cont))+
         theme_bw()+
         geom_point(aes(color=Treatment),
                    alpha=0.6,
+                   size=4,
                    position=position_jitter(height=0, width=0.1))+
         geom_hline(yintercept=1, alpha=0.5)+
         geom_linerange(data=means_neu, aes(x=Treatment,
                                            ymin=lower.CL,
-                                           ymax=upper.CL))+
+                                           ymax=upper.CL),
+                       size=1.5)+
         geom_point(data=means_neu, aes(x=Treatment, y=Int_House_Cont),
-                   shape="-", size=6)+
+                   shape="-", size=8)+
         geom_text(data=means_neu, aes(y=upper.CL+0.00001,
                                       x=Treatment,
-                                      label=sig_star), size=8)+
-        scale_y_continuous(breaks=c(0.025, 0.05, 0.1, 1, 10, 15),
-                           limits=c(0.025, 16),
+                                      label=sig_star), size=10)+
+        scale_y_continuous(breaks=c(0.1, 0.5, 1, 5, 10),
+                           limits=c(0.1, 10),
                            trans="log10")+
-        scale_x_discrete(breaks=c(# "Control",
-                "NIM-1",
-                "7d_NIM-2",
-                "30d_NIM-2",
-                "30d_NIM-2_1d_MAT"))+
-        scale_color_discrete(breaks=c(#"Control",
-                "NIM-1",
-                "7d_NIM-2",
-                "30d_NIM-2",
-                "30d_NIM-2_1d_MAT"),
-                labels=c(#"Control",
-                        "NIM-1",
+        scale_x_discrete(breaks=c("NIM-1",
+                                  "7d_NIM-2",
+                                  "30d_NIM-2",
+                                  "30d_NIM-2_1d_MAT"))+
+        scale_color_manual(breaks=c("NIM-1",
+                                    "7d_NIM-2",
+                                    "30d_NIM-2",
+                                    "30d_NIM-2_1d_MAT"),
+                labels=c("NIM-1",
                         "7d NIM-2",
                         "30d NIM-2",
-                        "30d NIM-2 1d MAT"))+
-        scale_color_manual(values=c(#"#FF6666",
-                                    "#CCCC33",
-                                    "#33CC33",
-                                    "#0099CC",
-                                    "#FF99FF"))+
+                        "30d NIM-2 1d MAT"),
+                values=c( "#CCCC33",
+                        "#33CC33",
+                        "#0099CC",
+                        "#FF99FF"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
-              legend.position="bottom",
+              legend.position="",
               legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
               legend.text = element_text(face="bold"),
-              strip.text.x = element_text(face="bold"),
+              strip.text.x = element_text(face="bold", size=15),
               axis.ticks.x=element_blank(),
-              axis.text.y = element_text(color="black"),
+              axis.text.y = element_text(color="black", size=15),
               axis.title.y = element_text(color="black", size=15))+
         ylab("Relative protein expression level\n scaled on MSC")+
         xlab("")+
         facet_grid(~Protein)
 
-ggsave("western_blot_neuronal_fig_1_c.png", width=13, height=9*1.5, units="cm")
+ggsave("western_blot_neuronal_fig_1_c.png", width=9, height=10, units="cm")
 
 
 
