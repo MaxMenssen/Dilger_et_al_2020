@@ -216,30 +216,35 @@ ggplot(dat_1, aes(x=Treatment, y=delta_ct))+
                                   "7d_NIM-2",
                                   "30d_NIM-2",
                                   "30d_NIM-2_1d_MAT"))+
-        scale_color_discrete(breaks=c("Control", 
+        scale_color_manual(breaks=c("Control", 
                                   "NIM-1", 
                                   "7d_NIM-2",
                                   "30d_NIM-2",
                                   "30d_NIM-2_1d_MAT"),
-                             labels=c("Control", 
+                             labels=c("MSC", 
                                       "NIM-1", 
                                       "7d NIM-2",
                                       "30d NIM-2",
-                                      "30d NIM-2 1d MAT"))+
-        scale_color_manual(values=c("#FF6666",
-                                    "#CCCC33",
-                                    "#33CC33",
-                                    "#0099CC",
-                                    "#FF99FF"))+
+                                      "30d NIM-2 1d MAT"), 
+                             values=c("#FF6666",
+                                      "#CCCC33",
+                                      "#33CC33",
+                                      "#0099CC",
+                                      "#FF99FF"))+
+        # scale_color_manual(values=c("#FF6666",
+        #                             "#CCCC33",
+        #                             "#33CC33",
+        #                             "#0099CC",
+        #                             "#FF99FF"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
               legend.position="bottom",
               legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
               legend.text = element_text(face="bold"),
-              strip.text.x = element_text(face="bold.italic"),
+              strip.text.x = element_text(face="bold.italic", size=13),
               axis.ticks.x=element_blank(),
-              axis.text.y = element_text(color="black"),
+              axis.text.y = element_text(color="black", face="bold", size=10),
               axis.title.y = element_text(color="black", size=15))+
         ylab(bquote("Relative gene expression ("~2^{-Delta~"Ct"}~")"))+
         xlab("")+
@@ -307,7 +312,7 @@ ggplot(dat_3, aes(x=Treatment, y=delta_ct))+
                                   "7d_NIM-2",
                                   "30d_NIM-2",
                                   "30d_NIM-2_1d_MAT"))+
-        scale_color_discrete(breaks=c("Control", 
+        scale_color_manual(breaks=c("Control", 
                                       "NIM-1", 
                                       "7d_NIM-2",
                                       "30d_NIM-2",
@@ -316,21 +321,26 @@ ggplot(dat_3, aes(x=Treatment, y=delta_ct))+
                                       "NIM-1", 
                                       "7d NIM-2",
                                       "30d NIM-2",
-                                      "30d NIM-2 1d MAT"))+
-        scale_color_manual(values=c("#FF6666",
-                                    "#CCCC33",
-                                    "#33CC33",
-                                    "#0099CC",
-                                    "#FF99FF"))+
+                                      "30d NIM-2 1d MAT"),
+                             values=c("#FF6666",
+                                      "#CCCC33",
+                                      "#33CC33",
+                                      "#0099CC",
+                                      "#FF99FF"))+
+        # scale_color_manual(values=c("#FF6666",
+        #                             "#CCCC33",
+        #                             "#33CC33",
+        #                             "#0099CC",
+        #                             "#FF99FF"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
               legend.position="bottom",
               legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
               legend.text = element_text(face="bold"),
-              strip.text.x = element_text(face="bold.italic"),
+              strip.text.x = element_text(face="bold.italic", size=13),
               axis.ticks.x=element_blank(),
-              axis.text.y = element_text(color="black"),
+              axis.text.y = element_text(color="black", face="bold", size=10),
               axis.title.y = element_text(color="black", size=15))+
         ylab(bquote("Relative gene expression ("~2^{-Delta~"Ct"}~")"))+
         xlab("")+
@@ -396,7 +406,7 @@ ggplot(dat_A, aes(x=Treatment, y=delta_ct))+
                                   "7d_NIM-2",
                                   "30d_NIM-2",
                                   "30d_NIM-2_1d_MAT"))+
-        scale_color_discrete(breaks=c("Control", 
+        scale_color_manual(breaks=c("Control", 
                                       "NIM-1", 
                                       "7d_NIM-2",
                                       "30d_NIM-2",
@@ -405,21 +415,26 @@ ggplot(dat_A, aes(x=Treatment, y=delta_ct))+
                                       "NIM-1", 
                                       "7d NIM-2",
                                       "30d NIM-2",
-                                      "30d NIM-2 1d MAT"))+
-        scale_color_manual(values=c("#FF6666",
-                                    "#CCCC33",
-                                    "#33CC33",
-                                    "#0099CC",
-                                    "#FF99FF"))+
+                                      "30d NIM-2 1d MAT"),
+                             values=c("#FF6666",
+                                      "#CCCC33",
+                                      "#33CC33",
+                                      "#0099CC",
+                                      "#FF99FF"))+
+        # scale_color_manual(values=c("#FF6666",
+        #                             "#CCCC33",
+        #                             "#33CC33",
+        #                             "#0099CC",
+        #                             "#FF99FF"))+
         theme(axis.text.x=element_blank(),
               legend.title.align=0.5,
               legend.position="bottom",
               legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
               legend.text = element_text(face="bold"),
-              strip.text.x = element_text(face="bold.italic"),
+              strip.text.x = element_text(face="bold.italic", size=13),
               axis.ticks.x=element_blank(),
-              axis.text.y = element_text(color="black"),
+              axis.text.y = element_text(color="black", face="bold", size=10),
               axis.title.y = element_text(color="black", size=15))+
         ylab(bquote("Relative gene expression ("~2^{-Delta~"Ct"}~")"))+
         xlab("")+
