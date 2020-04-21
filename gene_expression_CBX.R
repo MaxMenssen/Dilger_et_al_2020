@@ -125,7 +125,8 @@ for(i in 1:length(genes)){
         # print(means_df)
         
         # Mean Comparisons
-        contr <- contrast(comp, method=contrast_list, type="response")
+        comp1 <- emmeans(fit, ~Treat*Conc)
+        contr <- contrast(comp1, method=contrast_list, type="response")
         
         # Data frame with comparisons
         contr_df <- contr %>% 
@@ -333,19 +334,141 @@ ggplot(dat_1, aes(x=Interaction, y=delta_ct))+
                                     label=sig_star_ac), size=3)+
         scale_y_continuous(breaks=c(1e-8, 1e-06, 1e-04, 1e-02, 1, 10), 
                            trans="log10")+
-        scale_color_discrete(breaks=c("MS:0",
+        scale_color_manual(breaks=c("MS:0",
                                       "MS:50",
                                       "MS:100",
                                       "A:0",
                                       "A:50",
                                       "A:100"),
-                             labels=c(bquote("MSC, 0"~mu*"M"),
-                                      bquote("MSC, 50"~mu*"M"),
-                                      bquote("MSC, 100"~mu*"M"),
-                                      bquote("AC, 0"~mu*"M"),
-                                      bquote("AC, 50"~mu*"M"),
-                                      bquote("AC, 100"~mu*"M")))+
-        scale_color_manual(values=c("#FFCC00",
+                             labels=c(bquote("MSC, 0"~mu*"M CBX"),
+                                      bquote("MSC, 50"~mu*"M CBX"),
+                                      bquote("MSC, 100"~mu*"M CBX"),
+                                      bquote("7d NIM-2 , 0"~mu*"M CBX"),
+                                      bquote("7d NIM-2 , 50"~mu*"M CBX"),
+                                      bquote("7d NIM-2 , 100"~mu*"M CBX")),
+                             values=c("#FFCC00",
+                                      "#FF9900",
+                                      "#FF6600",
+                                      "#0099FF",
+                                      "#66CCFF",
+                                      "#3399CC"))+
+        theme(axis.text.x=element_blank(),
+              legend.title.align=0.5,
+              legend.position="bottom",
+              legend.box.margin=margin(-10, -10, -10, -10),
+              legend.title = element_blank(),
+              legend.text = element_text(face="bold", size=10),
+              legend.direction = "horizontal",
+              legend.text.align=0,
+              strip.text.x = element_text(face="bold.italic", size=15),
+              axis.ticks.x=element_blank(),
+              axis.text.y = element_text(color="black", face="bold", size=15),
+              axis.title.y = element_text(color="black", size=20))+
+        ylab(bquote("Relative gene expression ("~2^{-Delta~"Ct"}~")"))+
+        xlab("")+
+        facet_grid(~Gen)
+
+# Save the grafic
+ggsave("gene_expression_CBX_fig_4a.png", width=13*2, height=9*1.5, units="cm", dpi=600)
+
+
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+
+# Filter original data for the genes
+dat_1 <- dat %>% 
+        dplyr::filter(Gen=="GJB2"| 
+                              Gen=="GJD2"|
+                              Gen=="GJA4"|
+                              Gen=="GJA5"|
+                              Gen=="GJA1"|
+                              Gen=="GJC1") %>% 
+        dplyr::rename(Treatment=Treat,
+                      Concentration=Conc)
+
+# Relevel the genes (for facet order)
+dat_1$Gen <- factor(dat_1$Gen, 
+                    levels=c("GJB2", "GJD2", "GJA4", "GJA5", "GJA1", "GJC1"))
+str(dat_1)
+
+dat_1$Interaction <- dat_1$Treat : dat_1$Conc
+dat_1$Interaction <- factor(dat_1$Interaction, 
+                            levels=c("MS:0", "MS:50", "MS:100",
+                                     "A:0", "A:50" , "A:100"))
+
+
+# dat_1$inter <- droplevels(dat_1$Treatment : dat_1$Concentration)
+
+# Filter the means for the genes
+means_1 <- means_data_frame %>% 
+        dplyr::filter(Gen=="GJB2"| 
+                              Gen=="GJD2"|
+                              Gen=="GJA4"|
+                              Gen=="GJA5"|
+                              Gen=="GJA1"|
+                              Gen=="GJC1") %>% 
+        dplyr::rename(Treatment=Treat,
+                      Concentration=Conc)
+
+# Find the max. delta ct values (for aligning the stars in the grafic)
+max_delta_1 <- dat_1 %>% 
+        group_by(Gen, Treatment, Concentration) %>% 
+        dplyr::summarize(max_delta=max(delta_ct, na.rm=TRUE)) 
+
+# Join the means and the max_delta data setws
+means_1 <- full_join(means_1, max_delta_1) 
+
+# Relevel the genes (for facet order)
+means_1$Gen <- factor(means_1$Gen, 
+                      levels=c("GJB2", "GJD2", "GJA4", "GJA5", "GJA1", "GJC1"))
+
+means_1$Interaction <- means_1$Treat : means_1$Conc
+means_1$Interaction <- factor(means_1$Interaction, 
+                              levels=c("MS:0", "MS:50", "MS:100",
+                                       "A:0", "A:50" , "A:100"))
+
+# Labels for the anova results
+anova_labs_1 <- anova_data_frame %>% 
+        plyr::filter(Gen=="GJB2"| 
+                             Gen=="GJD2"|
+                             Gen=="GJA4"|
+                             Gen=="GJA5"|
+                             Gen=="GJA1"|
+                             Gen=="GJC1")
+
+# Plot the grafic
+ggplot(dat_1, aes(x=Interaction, y=delta_ct))+
+        theme_bw()+
+        geom_point(aes(color=Interaction),
+                   alpha=0.6,
+                   position=position_jitter(height=0, width=0.1))+
+        geom_linerange(data=means_1, aes(x=Interaction,
+                                         ymin=lower.CL,
+                                         ymax=upper.CL))+
+        geom_point(data=means_1, aes(x=Interaction,
+                                     y=delta_ct),
+                   shape="-", size=6)+
+        geom_text(data=means_1, aes(y=1.2*max_delta,
+                                    x=Interaction,
+                                    label=sig_star_msc), size=6)+
+        geom_text(data=means_1, aes(y=2.7*max_delta,
+                                    x=Interaction,
+                                    label=sig_star_ac), size=3)+
+        scale_y_continuous(breaks=c(1e-8, 1e-06, 1e-04, 1e-02, 1, 10), 
+                           trans="log10")+
+        scale_color_manual(breaks=c("MS:0",
+                                    "MS:50",
+                                    "MS:100",
+                                    "A:0",
+                                    "A:50",
+                                    "A:100"),
+                           labels=c(bquote("MSC, 0"~mu*"M CBX"),
+                                    bquote("MSC, 50"~mu*"M CBX"),
+                                    bquote("MSC, 100"~mu*"M CBX"),
+                                    bquote("7d NIM-2, 0"~mu*"M CBX"),
+                                    bquote("7d NIM-2, 50"~mu*"M CBX"),
+                                    bquote("7d NIM-2, 100"~mu*"M CBX")),
+                           values=c("#FFCC00",
                                     "#FF9900",
                                     "#FF6600",
                                     "#0099FF",
@@ -356,18 +479,19 @@ ggplot(dat_1, aes(x=Interaction, y=delta_ct))+
               legend.position="bottom",
               legend.box.margin=margin(-10, -10, -10, -10),
               legend.title = element_blank(),
-              legend.text = element_text(face="bold"),
-              strip.text.x = element_text(face="bold.italic"),
+              legend.text = element_text(face="bold", size=10),
+              legend.direction = "horizontal",
+              legend.text.align=0,
+              strip.text.x = element_text(face="bold.italic", size=18),
               axis.ticks.x=element_blank(),
-              axis.text.y = element_text(color="black"),
-              axis.title.y = element_text(color="black", size=15))+
+              axis.text.y = element_text(color="black", face="bold", size=15),
+              axis.title.y = element_text(color="black", size=20))+
         ylab(bquote("Relative gene expression ("~2^{-Delta~"Ct"}~")"))+
         xlab("")+
         facet_grid(~Gen)
 
 # Save the grafic
-ggsave("gene_expression_CBX_fig_1.png", width=13*2, height=9*1.5, units="cm", dpi=600)
-
+ggsave("gene_expression_CBX_fig_4b.png", width=13*2, height=9*1.5, units="cm", dpi=600)
 
 
 
